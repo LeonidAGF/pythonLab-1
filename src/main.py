@@ -1,4 +1,4 @@
-from src.count_rpn import count_rpn
+from src.processing_rpn import processing_rpn
 
 def main() -> None:
 
@@ -9,7 +9,7 @@ def main() -> None:
 
     input1 = str(input("введите обратную польскую нотацию \n"))
 
-    result = count_rpn(input1)
+    result = processing_rpn(input1)
 
     print(result)
 

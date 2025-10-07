@@ -1,10 +1,8 @@
-import sys
-from src.brackets_validation import brackets_validation
 from src.constants import SPELLING_ERROR, OPERATORS, UNARY_OPERAORS, UNARY_MINUS, MINUS, PLUS, MULTIPLY, DEVIDE, MODULO, \
-    INTEGER_DEVIDE, EXPONENTIATION, BRACKETS_ERROR, OPENING_BRACKET, CLOSING_BRACKET
+    INTEGER_DEVIDE, EXPONENTIATION, ZERO_DIVISION_ERROR
+
 
 def count_rpn(expression: str):
-
     """
         Считает результат обратной польской нотации.
         Возвращает строку с рузультатом если выражение написанно верно, в противном случае возвращает пустую строку.
@@ -12,21 +10,12 @@ def count_rpn(expression: str):
 
     answer = ""
     input_str = expression
-    if brackets_validation(input_str)==0:
-        print("\"",expression,"\"",BRACKETS_ERROR)
-        return ""
-
-    input_str = input_str.replace(OPENING_BRACKET, "")
-    input_str = input_str.replace(CLOSING_BRACKET, "")
-
-    while "  " in input_str:
-        input_str = input_str.replace("  ", " ")
-
     stack = input_str.split()
 
     if len(stack) == 0:
         print(SPELLING_ERROR)
-        sys.exit()
+        answer = ""
+        return answer
 
     pos = 0
 
@@ -51,13 +40,24 @@ def count_rpn(expression: str):
                         stack[pos - 2] = str(float(stack[pos - 2]) * float(stack[pos - 1]))
 
                     elif stack[pos] == DEVIDE:
-                        stack[pos - 2] = str(float(stack[pos - 2]) / float(stack[pos - 1]))
+                        if float(stack[pos - 1])!=0:
+                            stack[pos - 2] = str(float(stack[pos - 2]) / float(stack[pos - 1]))
+                        else:
+                            raise ZeroDivisionError
 
                     elif stack[pos] == MODULO:
-                        stack[pos - 2] = str(float(stack[pos - 2]) % float(stack[pos - 1]))
+                        if float(stack[pos - 2])%1 == 0 or float(stack[pos - 1])%1==0:
+                            stack[pos - 2] = str(float(stack[pos - 2]) % float(stack[pos - 1]))
+                        elif float(stack[pos - 1]) ==0:
+                            raise ZeroDivisionError
+                        else:
+                            raise ValueError
 
                     elif stack[pos] == INTEGER_DEVIDE:
-                        stack[pos - 2] = str(float(stack[pos - 2]) // float(stack[pos - 1]))
+                        if float(stack[pos - 2])%1 == 0 or float(stack[pos - 1])%1==0:
+                            stack[pos - 2] = str(float(stack[pos - 2]) // float(stack[pos - 1]))
+                        else:
+                            raise ValueError
 
                     elif stack[pos] == EXPONENTIATION:
                         stack[pos - 2] = str(float(stack[pos - 2]) ** float(stack[pos - 1]))
@@ -69,8 +69,11 @@ def count_rpn(expression: str):
             answer = str(int(float(stack[0])))
         else:
             answer = stack[0]
+    except ZeroDivisionError:
+        print("\"", expression, "\"", ZERO_DIVISION_ERROR)
+        answer = ""
 
     except Exception:
-        print("\"",expression,"\"", SPELLING_ERROR)
+        print("\"", expression, "\"", SPELLING_ERROR)
         answer = ""
     return answer

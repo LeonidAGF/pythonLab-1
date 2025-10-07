@@ -1,5 +1,6 @@
 BRACKETS_ERROR: str = "error with incorrect placement of brackets \n"
 SPELLING_ERROR: str = "invalid expression \n"
+ZERO_DIVISION_ERROR: str = "division by zero \n"
 OPERATORS = ["+","-","*","/","%","//","~+","~-", "**"]
 PLUS: str = "+"
 MINUS: str = "-"
