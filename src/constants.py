@@ -1,1 +1,16 @@
-SAMPLE_CONSTANT: int = 10
+BRACKETS_ERROR: str = "error with incorrect placement of brackets \n"
+SPELLING_ERROR: str = "invalid expression \n"
+OPERATORS = ["+","-","*","/","%","//","~+","~-", "**"]
+PLUS: str = "+"
+MINUS: str = "-"
+MULTIPLY: str = "*"
+DEVIDE: str = "/"
+MODULO: str = "%"
+INTEGER_DEVIDE: str = "//"
+EXPONENTIATION: str = "**"
+UNARY_OPERAORS = ["~+","~-"]
+UNARY_MINUS: str = "~-"
+UNARY_PLUS: str = "~+"
+OPENING_BRACKET: str = "("
+CLOSING_BRACKET: str = ")"
+BRACKETS = ["(",")"]
