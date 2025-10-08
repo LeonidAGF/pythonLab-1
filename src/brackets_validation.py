@@ -24,11 +24,11 @@ def brackets_validation(expression: str):
             if el == CLOSING_BRACKET:
                 if len(brackets) == 0:
                     return 0
-                    if brackets[-1] == OPENING_BRACKET and count_rpn(input_str[open_bracket_pos[-1]+1:i].replace("(","").replace(")","")) != "":
-                        brackets = brackets[0:len(brackets) - 1]
-                        open_bracket_pos = open_bracket_pos[0:len(open_bracket_pos)-1]
-                    else:
-                        return 0
+                elif brackets[-1] == OPENING_BRACKET and count_rpn(input_str[open_bracket_pos[-1]+1:i].replace("(","").replace(")","")) != "":
+                    brackets = brackets[0:len(brackets) - 1]
+                    open_bracket_pos = open_bracket_pos[0:len(open_bracket_pos)-1]
+                else:
+                    return 0
             else:
                 brackets.append(el)
                 open_bracket_pos.append(i)

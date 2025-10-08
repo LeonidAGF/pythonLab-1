@@ -19,6 +19,8 @@ def count_rpn(expression: str):
 
     pos = 0
 
+
+
     try:
         while len(stack) > 1:
             pos += 1
@@ -28,8 +30,7 @@ def count_rpn(expression: str):
                         stack[pos - 1] = str(-float(stack[pos - 1]))
                     stack = stack[0:pos] + stack[pos + 1:len(stack)]
                     pos -= 1
-                else:
-
+                elif pos>1:
                     if stack[pos] == PLUS:
                         stack[pos - 2] = str(float(stack[pos - 2]) + float(stack[pos - 1]))
 
@@ -46,7 +47,7 @@ def count_rpn(expression: str):
                             raise ZeroDivisionError
 
                     elif stack[pos] == MODULO:
-                        if float(stack[pos - 2])%1 == 0 or float(stack[pos - 1])%1==0:
+                        if float(stack[pos - 2])%1 == 0 and float(stack[pos - 1])%1==0:
                             stack[pos - 2] = str(float(stack[pos - 2]) % float(stack[pos - 1]))
                         elif float(stack[pos - 1]) ==0:
                             raise ZeroDivisionError
@@ -54,7 +55,7 @@ def count_rpn(expression: str):
                             raise ValueError
 
                     elif stack[pos] == INTEGER_DEVIDE:
-                        if float(stack[pos - 2])%1 == 0 or float(stack[pos - 1])%1==0:
+                        if float(stack[pos - 2])%1 == 0 and float(stack[pos - 1])%1==0:
                             stack[pos - 2] = str(float(stack[pos - 2]) // float(stack[pos - 1]))
                         else:
                             raise ValueError
@@ -64,6 +65,8 @@ def count_rpn(expression: str):
 
                     stack = stack[0:pos - 1] + stack[pos + 1:len(stack)]
                     pos -= 2
+                else:
+                    raise ValueError
 
         if float(stack[0]) % 1 == 0:
             answer = str(int(float(stack[0])))
