@@ -7,9 +7,9 @@ def main() -> None:
         return: Данная функция ничего не возвращает
     """
 
-    input1 = str(input("введите обратную польскую нотацию \n"))
+    input_expression = str(input("введите обратную польскую нотацию \n"))
 
-    result = processing_rpn(input1)
+    result = processing_rpn(input_expression)
 
     print(result)
 

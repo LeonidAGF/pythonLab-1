@@ -1,5 +1,5 @@
 from src.constants import SPELLING_ERROR, OPERATORS, UNARY_OPERAORS, UNARY_MINUS, MINUS, PLUS, MULTIPLY, DEVIDE, MODULO, \
-    INTEGER_DEVIDE, EXPONENTIATION, ZERO_DIVISION_ERROR
+    INTEGER_DEVIDE, EXPONENTIATION, ZERO_DIVISION_ERROR, EMPTY_INPUT_ERROR
 
 
 def count_rpn(expression: str):
@@ -8,18 +8,14 @@ def count_rpn(expression: str):
         Возвращает строку с рузультатом если выражение написанно верно, в противном случае возвращает пустую строку.
     """
 
-    answer = ""
-    input_str = expression
-    stack = input_str.split()
+    answer: str = ""
+    input_str: str = expression
+    stack: list[str] = input_str.split()
+    pos: int = 0
 
     if len(stack) == 0:
-        print(SPELLING_ERROR)
-        answer = ""
+        print(EMPTY_INPUT_ERROR)
         return answer
-
-    pos = 0
-
-
 
     try:
         while len(stack) > 1:
@@ -66,12 +62,13 @@ def count_rpn(expression: str):
                     stack = stack[0:pos - 1] + stack[pos + 1:len(stack)]
                     pos -= 2
                 else:
-                    raise ValueError
+                    raise Exception
 
         if float(stack[0]) % 1 == 0:
             answer = str(int(float(stack[0])))
         else:
             answer = stack[0]
+
     except ZeroDivisionError:
         print("\"", expression, "\"", ZERO_DIVISION_ERROR)
         answer = ""

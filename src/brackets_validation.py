@@ -12,14 +12,14 @@ def brackets_validation(expression: str):
     brackets: list[str] = []
     open_bracket_pos: list[int] = []
 
-    input_str = expression
+    input_str: str = expression
     while "( (" in input_str:
         input_str = input_str.replace("( (", "((")
     while ") )" in input_str:
         input_str = input_str.replace(") )", "))")
 
     for i in range(0,len(input_str)):
-        el = input_str[i]
+        el: str = input_str[i]
         if el in BRACKETS:
             if el == CLOSING_BRACKET:
                 if len(brackets) == 0:
