@@ -1,7 +1,7 @@
 [project]
 name = "labs"
 version = "0.1.0"
-description = "Add your description here"
+description = "converting an infix expression to rpn and evaluating it"
 requires-python = ">=3.12"
 dependencies = [
     "pytest>=8.4.2",

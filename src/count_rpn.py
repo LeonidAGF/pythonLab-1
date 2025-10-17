@@ -2,15 +2,14 @@ from src.constants import SPELLING_ERROR, OPERATORS, UNARY_OPERAORS, UNARY_MINUS
     INTEGER_DEVIDE, EXPONENTIATION, ZERO_DIVISION_ERROR, EMPTY_INPUT_ERROR
 
 
-def count_rpn(expression: str):
+def count_rpn(expression: list[str]):
     """
         Считает результат обратной польской нотации.
         Возвращает строку с рузультатом если выражение написанно верно, в противном случае возвращает пустую строку.
     """
 
     answer: str = ""
-    input_str: str = expression
-    stack: list[str] = input_str.split()
+    stack: list[str] = expression
     pos: int = 0
 
     if len(stack) == 0:
@@ -19,6 +18,7 @@ def count_rpn(expression: str):
 
     try:
         while len(stack) > 1:
+            #print(stack)
             pos += 1
             if stack[pos] in OPERATORS:
                 if stack[pos] in UNARY_OPERAORS:
@@ -70,10 +70,10 @@ def count_rpn(expression: str):
             answer = stack[0]
 
     except ZeroDivisionError:
-        print("\"", expression, "\"", ZERO_DIVISION_ERROR)
+        print(ZERO_DIVISION_ERROR)
         answer = ""
 
     except Exception:
-        print("\"", expression, "\"", SPELLING_ERROR)
+        print(SPELLING_ERROR)
         answer = ""
     return answer

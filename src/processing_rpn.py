@@ -1,34 +1,37 @@
-from src.brackets_validation import brackets_validation
-from src.constants import BRACKETS_ERROR, OPENING_BRACKET, CLOSING_BRACKET, SPELLING_ERROR, ALL_SYMBOLS, \
-    INVALID_SYMBOLS_ERROR
+from src.constants import SPELLING_ERROR
 from src.count_rpn import count_rpn
-
+from src.rpn_parse import rpn_parse
+import re
 
 def processing_rpn(expression: str):
 
     """
-        Обрабатывает поданное на вход выражение, исключая из строки с ним все лишние элементы.
-        Возвращает строку с рузультатом если выражение написанно написанно без ошибок, в противном случае возвращает пустую строку.
+            Получает на вход инфиксое выражение в виде строки и преобразует его в инфиксоное выражение в виде массива токенов
+            Преобразует инфиксоное выражение в виде массива токенов в обратную польскую нотацию в виде массива токенов
+            Вычисляет обратную польскую нотацию
+            Возвращает строку с рузультатом если выражение написанно верно, в противном случае возвращает пустую строку.
     """
+    expression = expression.replace("~~", "")
 
-    input_str:str = expression
+    expression= re.sub(r'~(\d+(?:\.\d+)?|\([^)]+\))', r'(~\1)', expression)
 
-    for el in input_str:
-        if el not in ALL_SYMBOLS:
-            print(INVALID_SYMBOLS_ERROR, "\"", el, "\"")
-            return ""
+    expression= re.sub(r'~(\d+(?:\.\d+)?)', r'(~\1)', expression)
 
-    while "  " in input_str:
-        input_str = input_str.replace("  ", " ")
+    expression = expression.replace("-","+~")
+    expression = expression.replace("$","")
 
-    if len(input_str)==0:
-        print("\"", expression, "\"", SPELLING_ERROR)
+    tokens = re.findall(r'''
+               \d+(?:\.\d+)?          # Числа (целые и десятичные, только положительные)
+               |//                     # Оператор целочисленного деления
+               |[+*/^%$-]              # Остальные операторы (бинарные)
+               |[()]                  # Скобки
+               |\S+?                  # Другие символы
+           ''', expression, re.VERBOSE)
+
+    #print(tokens)
+    try:
+        result: str = count_rpn(rpn_parse(tokens))
+    except Exception:
+        print(SPELLING_ERROR)
         return ""
-
-    if brackets_validation(input_str)==0:
-        print("\"",expression,"\"",BRACKETS_ERROR)
-        return ""
-
-    input_str = input_str.replace(OPENING_BRACKET, "").replace(CLOSING_BRACKET, "")
-
-    return count_rpn(input_str)
+    return result
