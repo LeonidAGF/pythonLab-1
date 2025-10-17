@@ -8,7 +8,7 @@ EMPTY_INPUT_ERROR: str = "the entered line is empty \n"
 
 INVALID_SYMBOLS_ERROR: str = "there is an invalid symbol in the expression \n"
 
-OPERATORS: list[str] = ["+","-","*","/","%","//","$","~", "^"]
+OPERATORS: list[str] = ["+", "-", "*", "/", "%", "//", "$", "~", "^"]
 
 PLUS: str = "+"
 
@@ -24,7 +24,7 @@ INTEGER_DEVIDE: str = "//"
 
 EXPONENTIATION: str = "^"
 
-UNARY_OPERAORS: list[str] = ["$","~"]
+UNARY_OPERAORS: list[str] = ["$", "~"]
 
 UNARY_MINUS: str = "~"
 

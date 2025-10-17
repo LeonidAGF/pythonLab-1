@@ -1,17 +1,18 @@
 from src.processing_rpn import processing_rpn
 
-def main() -> None:
 
+def main() -> None:
     """
         Точкой входа в приложение
         return: Данная функция ничего не возвращает
     """
 
-    input_expression = str(input("введите обратную польскую нотацию \n"))
+    input_expression = str(input("введите обратную инфиксное выражение \n"))
 
     result = processing_rpn(input_expression)
 
     print(result)
+
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,7 @@ from src.constants import SPELLING_ERROR, OPERATORS, UNARY_OPERAORS, UNARY_MINUS
     INTEGER_DEVIDE, EXPONENTIATION, ZERO_DIVISION_ERROR, EMPTY_INPUT_ERROR
 
 
-def count_rpn(expression: list[str]):
+def count_rpn(expression: list[str]) -> str:
     """
         Считает результат обратной польской нотации.
         Возвращает строку с рузультатом если выражение написанно верно, в противном случае возвращает пустую строку.
@@ -18,7 +18,6 @@ def count_rpn(expression: list[str]):
 
     try:
         while len(stack) > 1:
-            #print(stack)
             pos += 1
             if stack[pos] in OPERATORS:
                 if stack[pos] in UNARY_OPERAORS:
@@ -26,7 +25,7 @@ def count_rpn(expression: list[str]):
                         stack[pos - 1] = str(-float(stack[pos - 1]))
                     stack = stack[0:pos] + stack[pos + 1:len(stack)]
                     pos -= 1
-                elif pos>1:
+                elif pos > 1:
                     if stack[pos] == PLUS:
                         stack[pos - 2] = str(float(stack[pos - 2]) + float(stack[pos - 1]))
 
@@ -37,21 +36,21 @@ def count_rpn(expression: list[str]):
                         stack[pos - 2] = str(float(stack[pos - 2]) * float(stack[pos - 1]))
 
                     elif stack[pos] == DEVIDE:
-                        if float(stack[pos - 1])!=0:
+                        if float(stack[pos - 1]) != 0:
                             stack[pos - 2] = str(float(stack[pos - 2]) / float(stack[pos - 1]))
                         else:
                             raise ZeroDivisionError
 
                     elif stack[pos] == MODULO:
-                        if float(stack[pos - 2])%1 == 0 and float(stack[pos - 1])%1==0:
+                        if float(stack[pos - 2]) % 1 == 0 and float(stack[pos - 1]) % 1 == 0:
                             stack[pos - 2] = str(float(stack[pos - 2]) % float(stack[pos - 1]))
-                        elif float(stack[pos - 1]) ==0:
+                        elif float(stack[pos - 1]) == 0:
                             raise ZeroDivisionError
                         else:
                             raise ValueError
 
                     elif stack[pos] == INTEGER_DEVIDE:
-                        if float(stack[pos - 2])%1 == 0 and float(stack[pos - 1])%1==0:
+                        if float(stack[pos - 2]) % 1 == 0 and float(stack[pos - 1]) % 1 == 0:
                             stack[pos - 2] = str(float(stack[pos - 2]) // float(stack[pos - 1]))
                         else:
                             raise ValueError
