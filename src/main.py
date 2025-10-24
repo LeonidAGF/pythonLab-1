@@ -7,7 +7,7 @@ def main() -> None:
         return: Данная функция ничего не возвращает
     """
 
-    input_expression = str(input("введите обратную инфиксное выражение \n"))
+    input_expression = str(input("введите инфиксное выражение \n"))
 
     result = processing_rpn(input_expression)
 
